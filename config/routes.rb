@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
- 
+  root 'players#index'
+  
   post 'import_players', to: 'players#import'  
+  
+  get 'groups/import', to: 'groups#import'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'players#index'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
