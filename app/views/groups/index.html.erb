@@ -1,8 +1,10 @@
 <%= flash[:notice] %>
 
+<%= link_to 'Players', root_path %>
+
 <div>
   <% @groups.each do |id, group_hash| %>
-    <h1 class="group-name"><%= "#{id}: #{group_hash[:name]}, Max Points: #{group_hash[:max_pts]}, Min Points: #{group_hash[:min_pts]}" %></h1>
+    <h3 class="group-name"><%= "#{id}: #{group_hash[:name]}, Max Points: #{group_hash[:max_pts]}, Min Points: #{group_hash[:min_pts]}" %></h3>
     <table class="table table-striped table-hover players-table">
       <thead>
         <tr>
@@ -23,5 +25,6 @@
         <% end %>
       </tbody>
     </table>
+    <br/>
   <% end %>
 </div>
