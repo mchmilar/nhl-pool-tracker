@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   require 'open-uri'
   
   def index
-    @groups = Group.hash
+    @groups = Group.hash.sort_by { |hsh| hsh[:lwl_rank] }.reverse
   end
   
   def import
