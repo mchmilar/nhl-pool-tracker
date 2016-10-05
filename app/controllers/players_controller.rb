@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.all.sort_by { |hsh| hsh[:lwl_rank] }.reverse
+    @players = Player.all.sort_by { |hsh| hsh[:lwl_rank] }
   end
   
   def import
