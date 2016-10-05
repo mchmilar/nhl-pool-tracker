@@ -3,7 +3,6 @@
 <h1><%= link_to 'Players', root_path %></h1>
 
 <div>
-  <% @groups.sort_by { |hsh| hsh[:lwl_rank] }.reverse %>
   <% @groups.each do |id, group_hash| %>
     <h3 class="group-name"><%= "#{id}: #{group_hash[:name]}, Max Points: #{group_hash[:max_pts]}, Min Points: #{group_hash[:min_pts]}" %></h3>
     <table class="table table-striped table-hover players-table">
