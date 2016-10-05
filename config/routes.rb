@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'import_players', to: 'players#import'  
   
   get 'groups/import', to: 'groups#import'
+  get 'groups', to: 'groups#index'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
