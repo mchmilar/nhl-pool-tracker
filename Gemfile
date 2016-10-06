@@ -55,3 +55,8 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
+group :test do
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'guard',                    '2.13.0'
+end
