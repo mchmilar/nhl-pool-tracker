@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005192207) do
+ActiveRecord::Schema.define(version: 20161008003242) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
 
   create_table "groups", force: :cascade do |t|
     t.string  "name"
@@ -27,8 +36,28 @@ ActiveRecord::Schema.define(version: 20161005192207) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
-    t.string   "team"
+    t.integer  "team_id"
     t.string   "position"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "gp"
+    t.integer  "w"
+    t.integer  "l"
+    t.integer  "ot"
+    t.integer  "p"
+    t.integer  "row"
+    t.decimal  "p_pct"
+    t.integer  "gf"
+    t.integer  "ga"
+    t.decimal  "pp_pct"
+    t.decimal  "pk_pct"
+    t.decimal  "shots_for_gp"
+    t.decimal  "shots_against_gp"
+    t.decimal  "fow_pct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

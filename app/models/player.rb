@@ -2,6 +2,11 @@ class Player < ActiveRecord::Base
   require 'csv'
   
   belongs_to :group
+  belongs_to :team
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :lwl_pts, presence: true
+  
+  
   
   def group
     Group.find(group_id)

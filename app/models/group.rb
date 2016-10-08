@@ -4,7 +4,8 @@ class Group < ActiveRecord::Base
   
   has_many :players
   
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
+  validates :name, presence: true, uniqueness: {case_sensitive: false }
+  validates :op_id_number, presence: true, uniqueness: { case_sensitive: false }
   
   BASE_PLAYER_URL = "http://www.officepools.com/nhl/entity/player/"
   

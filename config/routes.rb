@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   get 'groups/import', to: 'groups#import'
   get 'groups', to: 'groups#index'
   
+  get 'teams', to: 'teams#index'
+  get 'teams/import', to: 'teams#import'
+  get 'teams/new', to: 'teams#new'
+  post 'teams', to: 'teams#create'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
