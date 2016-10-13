@@ -1,10 +1,15 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.all.sort_by { |hsh| hsh[:lwl_rank] }
+    @players = Player.order('pts IS NULL, pts DESC')
   end
   
   def import
     Player.import(params[:file])
     redirect_to root_url, notice: "Players imported"
+  end
+  
+  def update_stats
+    @output = Player.update_stats
+    #redirect_to root_url, notice: "Players updated"
   end
 end

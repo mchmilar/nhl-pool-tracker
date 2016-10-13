@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
   BASE_PLAYER_URL = "http://www.officepools.com/nhl/entity/player/"
   
   def self.batch_import(pool_data_uri)
+    Group.destroy_all
     groups = get_op_groups(pool_data_uri)
     failed_player_adds = Array.new
     
@@ -25,7 +26,6 @@ class Group < ActiveRecord::Base
         end
       end
     end
-    byebug
     failed_player_adds
   end
   

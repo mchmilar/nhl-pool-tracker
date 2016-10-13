@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   end
 
   def new
-    @team = Team.new(name: "mark")
+    @team = Team.new()
   end
 
   def create
@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
     else
       render 'new'
     end
-    redirect_to teams_path
+    redirect_to teams_new_path
   end
   
   def import
