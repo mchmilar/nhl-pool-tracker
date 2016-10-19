@@ -3,28 +3,48 @@
 <h1 style="padding-left: 100px;">| <%= link_to 'View Players', root_path %> |</h1>
 <br/><br/>
 <div>
-  <% @groups.each do |id, group_hash| %>
-    <h3 class="group-name"><%= "#{id}: #{group_hash[:name]}, Max Points: #{group_hash[:max_pts]}, Min Points: #{group_hash[:min_pts]}" %></h3>
-    <table class="table table-striped table-hover players-table">
+    <table id="groups-list" class="table table-striped table-hover players-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Team</th>
-          <th>Pos</th>
-          <th>Proj. PTS</th>
+          <th>Team Name</th>
+          <th>Max Exp Pts</th>
+          <th>Min Exp Pts</th>
+          <th>Players</th>
         </tr>
       </thead>
       <tbody>
-        <% group_hash[:players].each do |player| %>
+        <% @groups.each do |id, group_hash| %>
           <tr>
-            <td><%= player.name %></td>
-            <td><%= player.team_name %></td>
-            <td><%= player.position %></td>
-            <td><%= player.lwl_pts %></td>
+            <td id="group-name"><%= group_hash[:name] %></td>
+            <td id="group-max-pts"><%= group_hash[:max_pts] %></td>
+            <td id="group-min-pts"><%= group_hash[:min_pts] %></td>
+            <td>
+              <table id="group-table-#{id}" class="table table-striped table-hover players-table group-inner-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>Position</th>
+                    <th>Projected Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% group_hash[:players].each do |player| %>
+                    <tr>
+                      <td><%= player.name %></td>
+                      <td><%= player.team_name %></td>
+                      <td><%= player.position %></td>
+                      <td><%= player.lwl_pts %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </td>
           </tr>
         <% end %>
       </tbody>
+      
     </table>
     <br/>
-  <% end %>
+  
 </div>
