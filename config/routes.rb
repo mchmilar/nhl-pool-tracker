@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   root 'players#index'
   get 'players/update-stats', to: 'players#update_stats'
   post 'import_players', to: 'players#import'  
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
   get 'teams/import', to: 'teams#import'
   get 'teams/new', to: 'teams#new'
   post 'teams', to: 'teams#create'
+  
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
