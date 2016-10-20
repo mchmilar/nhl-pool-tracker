@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008003242) do
+ActiveRecord::Schema.define(version: 20161019210226) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20161008003242) do
     t.integer  "group_id"
     t.integer  "team_id"
     t.string   "position"
+    t.integer  "draft_pos"
   end
 
   create_table "teams", force: :cascade do |t|

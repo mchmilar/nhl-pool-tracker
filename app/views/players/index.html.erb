@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>LWL Rank</th>
+      <th>Draft Pos.</th>
       <th>Name</th>
       <th>Team</th>
       <th>Projected Points</th>
@@ -19,6 +20,7 @@
     <% @players.each do |player| %>
     <tr>
       <td><%= player.lwl_rank %></td>
+      <td><%= player.draft_pos %></td>
       <td><%= player.name %></td>
       <td><%= player.team_name %></td>
       <td><%= player.lwl_pts %></td>
