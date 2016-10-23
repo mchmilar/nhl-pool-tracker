@@ -1,7 +1,4 @@
 <%= flash[:notice] %>
-<br/>
-<h1 style="padding-left: 100px;">| <%= link_to 'View Groups', groups_path %> |</h1>
-<br/><br/>
 <table id="players" class="table table-striped table-hover players-table">
   <thead>
     <tr>
@@ -18,18 +15,18 @@
   </thead>
   <tbody>
     <% @players.each do |player| %>
-    <tr>
-      <td><%= player.lwl_rank %></td>
-      <td><%= player.draft_pos %></td>
-      <td><%= player.name %></td>
-      <td><%= player.team_name %></td>
-      <td><%= player.lwl_pts %></td>
-      <td><%= player.pts %></td>
-      <td><%= player.prjct_pts_game %></td>
-      <td><%= player.pts_game %></td>
-      <td><%= player.group.name if player.group_id %></td>
-    </tr>
-  <% end %>
+      <tr>
+        <td><%= player.lwl_rank %></td>
+        <td><%= player.draft_pos %></td>
+        <td><%= player.name %></td>
+        <td><%= player.team_name %></td>
+        <td><%= player.lwl_pts %></td>
+        <td><%= player.pts %></td>
+        <td><%= player.prjct_pts_game %></td>
+        <td><%= player.pts_game %></td>
+        <td><%= player.group.name if player.group_id %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
