@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   root 'players#index'
+  get 'players', to: 'players#index'
   get 'players/update-stats', to: 'players#update_stats'
   post 'import_players', to: 'players#import'  
   
@@ -18,6 +19,9 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  
+  get '/users', to: 'users#new'
+  post '/users', to: 'users#create'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

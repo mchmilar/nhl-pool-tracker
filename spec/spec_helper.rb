@@ -17,12 +17,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
-end
+require 'capybara/rspec'
+
+
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
