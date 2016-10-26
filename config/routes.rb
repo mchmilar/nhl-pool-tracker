@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
-  get 'users/new'
 
-  get 'sessions/new'
 
   root 'players#index'
   get 'players', to: 'players#index'
   get 'players/update-stats', to: 'players#update_stats'
-  post 'import_players', to: 'players#import'  
+  post 'import_players', to: 'players#import'
   
   get 'groups/import', to: 'groups#import'
+  post 'groups/import', to: 'groups#do_import'
   get 'groups', to: 'groups#index'
   
   get 'teams', to: 'teams#index'

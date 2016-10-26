@@ -4,9 +4,13 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.hash
   end
-  
+
   def import
-    failed_adds = Group.batch_import('http://www.officepools.com/nhl/classic/214525/data-2016.10.05.14.23.30.307415.js')
+
+  end
+  
+  def do_import
+    failed_adds = Group.batch_import(params[:group][:import_url])
     message = ""
     failed_adds.each { |fail| "#{message}\n#{fail}" }
     flash[:danger] = message

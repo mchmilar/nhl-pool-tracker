@@ -1,1 +1,17 @@
 <%= @response %>
+
+<h1>Import Groups</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:group, url: groups_import_path) do |f| %>
+
+        <%= f.label :import_url  %>
+        <%= f.text_field class: 'form-control' %>
+
+        <%= f.submit "Import", class: "btn btn-primary" %>
+    <% end %>
+
+
+  </div>
+</div>
