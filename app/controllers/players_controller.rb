@@ -9,9 +9,13 @@ class PlayersController < ApplicationController
     Player.import(params[:file])
     redirect_to root_url, notice: "Players imported"
   end
-  
+
   def update_stats
-    @output = Player.update_stats
-    #redirect_to root_url, notice: "Players updated"
+
+  end
+
+  def do_update_stats
+    flash[:notice] = Player.update_stats
+    redirect_to players_path
   end
 end

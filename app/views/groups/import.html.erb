@@ -7,7 +7,7 @@
     <%= form_for(:group, url: groups_import_path) do |f| %>
 
         <%= f.label :import_url  %>
-        <%= f.text_field class: 'form-control' %>
+        <%= f.text_field :import_url, class: 'form-control', value: 'http://www.officepools.com/nhl/classic/214525/data-2016.10.05.14.23.30.307415.js' %>
 
         <%= f.submit "Import", class: "btn btn-primary" %>
     <% end %>

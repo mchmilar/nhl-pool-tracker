@@ -1,5 +1,12 @@
-<%= flash[:notice] %>
+
 <% provide(:title, 'Players') %>
+
+<% if flash[:notice] %>
+  <% flash[:notice].each do |player| %>
+      <%= player %> <br/>
+  <% end %>
+<% end %>
+
 <table id="players" class="table table-striped table-hover players-table">
   <thead>
     <tr>

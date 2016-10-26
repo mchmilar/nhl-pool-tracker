@@ -24,6 +24,7 @@ class Group < ActiveRecord::Base
       if group.save
         op_player_ids.each do |op_player|
           # Assign player to group. If this fails, add it to the list of failed adds
+          logger.debug "Attempting to add player: #{op_player}"
           if !add_player_to_group(op_player["id"], Group.last.id, op_player["drft_pos"])
             failed_player_adds << "Player: #{op_player["id"]} to Group: #{op_group_id}"
             logger.debug "Failed to assign player #{op_player["id"]} with draft position #{op_player["drft_pos"]} to Group #{op_group_id}"
@@ -86,7 +87,7 @@ private
   # Parse and return an array that contains hash entries of the form {"id" => 33, "drft_pos" => 1}
   def self.get_op_group_players(uri)
     res = open(uri).read
-    player_ids = res.scan(/p\d{4}/).each { |id| id.slice!("p") }
+    player_ids = res.scan(/p\d{1,4}/).each { |id| id.slice!("p") }
     draft_positions = res.scan(/(\d+)(?=(\|p))/)
     players = Array.new
     (0..NUM_PLAYERS_PER_GROUP - 1).each do |i| 
@@ -101,7 +102,17 @@ private
   def self.add_player_to_group(player_id, group_id, draft_pos)
     url = "#{BASE_PLAYER_URL}#{player_id}"
     #byebug
-    name = parse_player_name(Nokogiri::HTML(open(url)))
+
+    # Handle any exceptions while opening player url
+    player_page = nil
+    begin
+      player_page = open(url)
+    rescue
+      logger.debug "Error opening #{url}"
+      return false
+    end
+
+    name = parse_player_name(Nokogiri::HTML(player_page))
     player = Player.where("lower(name) = ?", name.downcase).first
     if player
       player.group_id = group_id
