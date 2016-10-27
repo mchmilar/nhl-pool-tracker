@@ -14,8 +14,22 @@ class PlayersController < ApplicationController
 
   end
 
+  def new
+
+  end
+
+  def create
+    @player = Player.new(player_params)
+  end
+
   def do_update_stats
     flash[:notice] = Player.update_stats
     redirect_to players_path
+  end
+
+  private
+
+  def player_params
+    params.require(:player).permit(:name, :team_id)
   end
 end

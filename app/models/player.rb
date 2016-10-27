@@ -4,6 +4,8 @@ class Player < ActiveRecord::Base
   require 'json'
   
   belongs_to :group
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   
   STATS_SCRAPE_URL = 'http://www.sportsnet.ca/wp-admin/admin-ajax.php?action=leagues_players_get_data&league=nhl&position=skater&theme=genesis&season=2016'
   NAME_KEY = '18'
