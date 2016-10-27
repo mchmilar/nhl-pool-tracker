@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023140451) do
+ActiveRecord::Schema.define(version: 20161027201324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,23 +36,28 @@ ActiveRecord::Schema.define(version: 20161023140451) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "gp"
-    t.integer  "w"
-    t.integer  "l"
-    t.integer  "ot"
-    t.integer  "p"
-    t.integer  "row"
-    t.decimal  "p_pct"
-    t.integer  "gf"
-    t.integer  "ga"
-    t.decimal  "pp_pct"
-    t.decimal  "pk_pct"
-    t.decimal  "shots_for_gp"
-    t.decimal  "shots_against_gp"
-    t.decimal  "fow_pct"
+    t.string   "teamFullName"
+    t.integer  "gamesPlayed"
+    t.integer  "wins"
+    t.integer  "losses"
+    t.integer  "otLosses"
+    t.integer  "points"
+    t.integer  "regPlusOtWins"
+    t.integer  "goalsFor"
+    t.integer  "goalsAgainst"
+    t.decimal  "ppPctg"
+    t.decimal  "pkPctg"
+    t.decimal  "shotsForPerGame"
+    t.decimal  "shotsAgainstPerGame"
+    t.decimal  "faceoffWinPctg"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "teamAbbrev"
+    t.decimal  "goalsAgainstPerGame"
+    t.decimal  "goalsForPerGame"
+    t.decimal  "pointPctg"
+    t.string   "seasonId"
+    t.integer  "ties"
   end
 
   create_table "users", force: :cascade do |t|

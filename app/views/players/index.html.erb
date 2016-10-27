@@ -27,11 +27,11 @@
         <td><%= player.lwl_rank %></td>
         <td><%= player.draft_pos %></td>
         <td><%= player.name %></td>
-        <td><%= player.team_name %></td>
+        <td><%= player.team_abbrev %></td>
         <td><%= player.lwl_pts %></td>
         <td><%= player.pts %></td>
-        <td><%= player.prjct_pts_game %></td>
-        <td><%= player.pts_game %></td>
+        <td><%= player.prjct_pts_game.round(2) %></td>
+        <td><%= player.pts_game.round(2) %></td>
         <td><%= player.group.name if player.group_id %></td>
       </tr>
     <% end %>

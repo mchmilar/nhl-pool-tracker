@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'groups', to: 'groups#index'
   
   get 'teams', to: 'teams#index'
-  get 'teams/import', to: 'teams#import'
+  get 'teams/update', to: 'teams#update'
+  post 'teams/update', to: 'teams#do_update'
   get 'teams/new', to: 'teams#new'
   post 'teams', to: 'teams#create'
   

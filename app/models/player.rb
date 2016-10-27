@@ -29,9 +29,9 @@ class Player < ActiveRecord::Base
     (pts / gp.to_f)
   end
   
-  def team_name
+  def team_abbrev
     if team_id
-      Team.find(team_id).name 
+      Team.find(team_id).teamAbbrev
     else
       "None"
     end
@@ -42,7 +42,7 @@ class Player < ActiveRecord::Base
     CSV.foreach(file.path, headers: true) do |row|
       player_hash = row.to_hash
       puts "Player Hash = #{player_hash}"
-      team = Team.find_by(name: player_hash["team"].upcase)
+      team = Team.find_by(teamAbbrev: player_hash["team"].upcase)
       player_hash[:team_id] = team.id if team
       player_hash.except!("team")
       Player.create!(player_hash)
