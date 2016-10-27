@@ -23,7 +23,7 @@ class PlayersController < ApplicationController
   end
 
   def do_update_stats
-    flash[:notice] = Player.update_stats
+    flash[:updated_stats] = Player.update_stats
     redirect_to players_path
   end
 

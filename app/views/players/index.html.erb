@@ -1,8 +1,8 @@
 
 <% provide(:title, 'Players') %>
 
-<% if flash[:notice] %>
-  <% flash[:notice].each do |player| %>
+<% if flash[:updated_stats] %>
+  <% flash[:updated_stats].each do |player| %>
       <%= player %> <br/>
   <% end %>
 <% end %>

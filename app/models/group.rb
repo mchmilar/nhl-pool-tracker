@@ -116,7 +116,7 @@ private
     player = Player.where("lower(name) = ?", name.downcase).first
     if player
       player.group_id = group_id
-      player.draft_pos = draft_pos
+      player.draft_pos = (draft_pos.to_i + 1).to_s
       logger.debug "Saving player #{name} to group #{group_id} at draft position #{draft_pos}"
       if !player.save
         logger.debug "Unable to save player: '#{name}'. Old id=#{player.goup_id}, attempted new id=#{group_id}. Old draft_pos=#{player.draft_pos}, attempted new draft_pos=#{draft_pos}"
