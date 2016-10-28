@@ -14,11 +14,20 @@
       <th>Draft Pos.</th>
       <th>Name</th>
       <th>Team</th>
+      <th>Group</th>
       <th>Projected Points</th>
       <th>Actual Points</th>
       <th>Projected PTS/GM</th>
       <th>Current PTS/GM</th>
-      <th>Group</th>
+      <th>Goals</th>
+      <th>Assists</th>
+      <th>PPG</th>
+      <th>PPP</th>
+      <th>SHG</th>
+      <th>GWG</th>
+      <th>Shots</th>
+      <th>SH %</th>
+      <th>ATOI</th>
     </tr>
   </thead>
   <tbody>
@@ -28,11 +37,20 @@
         <td><%= player.draft_pos %></td>
         <td><%= player.name %></td>
         <td><%= player.team_abbrev %></td>
+        <td><%= player.group.name if player.group_id %></td>
         <td><%= player.lwl_pts %></td>
         <td><%= player.pts %></td>
         <td><%= player.prjct_pts_game.round(2) %></td>
         <td><%= player.pts_game.round(2) %></td>
-        <td><%= player.group.name if player.group_id %></td>
+        <td><%= player.goals %></td>
+        <td><%= player.assists %></td>
+        <td><%= player.ppg %></td>
+        <td><%= player.ppp %></td>
+        <td><%= player.shg %></td>
+        <td><%= player.gwg %></td>
+        <td><%= player.shots %></td>
+        <td><%= player.s_pct.round(2) if player.s_pct %></td>
+        <td><%= player.atoi.round(2) if player.atoi %></td>
       </tr>
     <% end %>
   </tbody>

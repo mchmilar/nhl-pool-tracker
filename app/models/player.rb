@@ -11,6 +11,16 @@ class Player < ActiveRecord::Base
   NAME_KEY = '18'
   POINTS_KEY = '5'
   GP_KEY = '2'
+  G_KEY = '3'
+  A_KEY = '4'
+  PPG_KEY = '7'
+  PPP_KEY = '8'
+  SHG_KEY = '10'
+  SHP_KEY = '11'
+  GWG_KEY = '12'
+  SOG_KEY = '14'
+  S_PCT_KEY = '15'
+  ATOI_KEY = '16'
   GAMES_IN_SEASON = 82.0
   # get the group that picked the player
   def group
@@ -56,13 +66,34 @@ class Player < ActiveRecord::Base
     players_stats.each do |player_stats|
       player = Player.find_by(name: player_stats[NAME_KEY])
       if player
-        player.pts = player_stats[POINTS_KEY]
-        player.gp = player_stats[GP_KEY]
-        player.save
+        player.update(gp: player_stats[GP_KEY],
+           pts: player_stats[POINTS_KEY],
+           goals: player_stats[G_KEY],
+           assists: player_stats[A_KEY],
+           ppg: player_stats[PPG_KEY],
+           ppp: player_stats[PPP_KEY],
+           shg: player_stats[SHG_KEY],
+           shp: player_stats[SHP_KEY],
+           gwg: player_stats[GWG_KEY],
+           shots: player_stats[SOG_KEY],
+           s_pct: player_stats[S_PCT_KEY],
+           atoi: player_stats[ATOI_KEY])
       else
         # If we are here then we weren't able to find the player in our database
         # We want to try to add the player and their stats to the database
-        if !Player.add_player(player_stats[NAME_KEY], player_stats[GP_KEY], player_stats[POINTS_KEY])
+        if !Player.add_player(player_stats[NAME_KEY],
+                              player_stats[GP_KEY],
+                              player_stats[POINTS_KEY],
+                              player_stats[G_KEY],
+                              player_stats[A_KEY],
+                              player_stats[PPG_KEY],
+                              player_stats[PPP_KEY],
+                              player_stats[SHG_KEY],
+                              player_stats[SHP_KEY],
+                              player_stats[GWG_KEY],
+                              player_stats[SOG_KEY],
+                              player_stats[S_PCT_KEY],
+                              player_stats[ATOI_KEY])
           failed_array << player_stats[NAME_KEY]
         end
       end
@@ -70,7 +101,7 @@ class Player < ActiveRecord::Base
     failed_array
   end
 
-  def self.add_player(name, gp, points)
+  def self.add_player(name, gp, points, g, a, ppg, ppp, shg, shp, gwg, sog, s_pct, atoi)
     # If we already have a player with the same last name in our database
     # we will have to manually deal with the player as sometimes there are
     # differences in  how first names are expressed.
@@ -80,7 +111,7 @@ class Player < ActiveRecord::Base
     player = Player.where("name like ?", "%#{name_a[name_a.length - 1]}")[0]
     logger.debug "name like #{name_a[name_a.length - 1]} returns: #{player}"
     return false if player
-    player = Player.create(name: name, gp: gp, pts: points)
+    player = Player.create(name: name, gp: gp, pts: points, goals: g, assists: a, ppg: ppg, ppp: ppp, shg: shg, shp: shp, gwg: gwg, shots: sog, s_pct: s_pct, atoi: atoi)
     if player
       logger.debug "Successfully created player #{name}"
     else
