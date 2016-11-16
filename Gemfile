@@ -35,6 +35,8 @@ gem 'jquery-datatables-rails'
 
 gem 'log4r'
 
+gem 'materialize-sass'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

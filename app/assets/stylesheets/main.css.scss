@@ -1,63 +1,13 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
+/*@import "bootstrap-sprockets";
+@import "bootstrap"; */
+@import "materialize";
 
 /* universal */
 
 /* mixins, variables, etc. */
+$font-url: 'http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic&subset=latin';
 
 $grayMediumLight: #eaeaea;
-
-/* universal */
-
-html {
-  overflow-y: scroll;
-}
-
-body {
-  padding-top: 60px;
-}
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.center {
-  text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
-}
-
-/* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-}
-
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: $grayMediumLight;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
-}
 
 
 th.dt-center, td.dt-center { text-align: center; }
