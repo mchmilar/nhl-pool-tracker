@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
     end
     redirect_to teams_new_path
   end
-  
+
   def update
   end
 
@@ -84,7 +84,10 @@ class TeamsController < ApplicationController
         # If team is already in database, update stats
         if team_in_db[team_abrv]
           logger.debug "Team: #{team_abrv} found, attempting update"
-          Team.update(team_hash)
+          team_updating = Team.find_by(teamAbbrev: team_abrv)
+          logger.debug "team_hash.length = #{team_hash.length}"
+          logger.debug "Team.column_names = #{Team.column_names}"
+          team_updating.update(team_hash)
           logger.debug "Team: #{team_abrv} successfully updated"
           # Else, team is not in database. Create it with stats
         else
