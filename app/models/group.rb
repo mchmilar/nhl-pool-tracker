@@ -53,13 +53,13 @@ class Group < ActiveRecord::Base
     sum
   end
   
-  def self.hash
+  def self.sorted_hash
     groups = Group.all
     groups_hash = Hash.new
     groups.each do |group|
       groups_hash[group.id] = { name: group.name, op_id_number: group.op_id_number, players: group.players, max_pts: group.max_proj_pts, min_pts: group.min_proj_pts }
     end
-    groups_hash
+    groups_hash.sort_by { |k, v| v[:name] }
   end
     
 private

@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   require 'open-uri'
   
   def index
-    @groups = Group.hash
+    @groups = Group.sorted_hash
   end
 
   def import
