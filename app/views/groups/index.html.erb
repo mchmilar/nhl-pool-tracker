@@ -1,13 +1,104 @@
 <%= flash[:notice] %>
-<% provide(:title, 'Groups') %>
-<div>
-  
+  <% provide(:title, 'Groups') %>
+    <div>
+      <!-- main page row -->
+      <div class="row">
+        <div class="col-lg-3 full-height-div">
+          <table class="table table-condensed table-hover table-groups">
+            <thead>
+              <tr>
+                <th class="align-table-content">Rank</th>
+                <th>Name</th>
+                <th class="align-table-content">Total</th>
+                <th class="align-table-content">P/G</th>
+                <th class="align-table-content">PT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @groups.each_with_index do |(id, group_hash), index| %>
+                <tr>
+                  <td class="align-table-content">
+                    <%= index+1 %>
+                  </td>
+                  <td>
+                    <%= group_hash[:name] %>
+                  </td>
+                  <td class="align-table-content">
+                    <%= index+10 %>
+                  </td>
+                  <td class="align-table-content">
+                    <%= index+5 %>
+                  </td>
+                  <td class="align-table-content">
+                    <%= index+2 %>
+                  </td>
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-8">
+          <% @groups.each_with_index do |(id, group_hash), index| %>
+            <div class="panel panel-default group-content">
+              <div class="panel-heading">
+                <%= group_hash[:name] %>
+              </div>
+              <div class="panel-body">
+                <div id='collapse<%= index %>' role='tabpanel' aria-labelledby='heading<%= index %>'>
+                  <div class='panel-body'>
+                    <table id='group-table-#{id}' class='table table-striped table-hover players-table group-inner-table table-condensed'>
+                      <thead>
+                        <tr>
+                          <th>Draft Pos.</th>
+                          <th>Name</th>
+                          <th>Team</th>
+                          <th>Position</th>
+                          <th>Projected Points</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% group_hash[:players].each do |player| %>
+                          <tr>
+                            <td>
+                              <%= player.draft_pos %>
+                            </td>
+                            <td>
+                              <%= player.name %>
+                            </td>
+                            <td>
+                              <%= player.team_abbrev %>
+                            </td>
+                            <td>
+                              <%= player.position %>
+                            </td>
+                            <td>
+                              <%= player.lwl_pts %>
+                            </td>
+                          </tr>
+                          <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+        </div>
+        <div class="col-lg-1"></div>
+      </div>
+    </div>
+
+
+
+
+
+    <!--
 
   <div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>  
   <% @groups.each_with_index do |(id, group_hash), index| %>
     
     <div class='panel panel-default'>
-      <div class='panel-heading' role='tab' id='heading<%= index %>'>
+      <div class='panel-heading group-header' role='tab' id='heading<%= index %>'>
         <h4 class='panel-title'>
           <a role='button' data-toggle='collapse' data-parent='#accordion' href='#collapse<%= index %>' aria-expanded='false' aria-controls='collapse<%= index %>'>
             <%= group_hash[:name] %>
@@ -16,7 +107,7 @@
       </div>
       <div id='collapse<%= index %>' class='panel-collapse collapse' role='tabpanel' aria-labelledby='heading<%= index %>'>
         <div class='panel-body'>
-          <table id='group-table-#{id}' class='table table-striped table-hover players-table group-inner-table'>
+          <table id='group-table-#{id}' class='table table-striped table-hover players-table group-inner-table table-condensed'>
             <thead>
               <tr>
                 <th>Draft Pos.</th>
@@ -44,7 +135,4 @@
     
   <% end %>
   </div>
-  
-  
-
-</div>
+  -->

@@ -1,12 +1,107 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
 
 /* universal */
 
+
 /* mixins, variables, etc. */
+
 $font-url: 'http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic&subset=latin';
-
 $grayMediumLight: #eaeaea;
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+th.dt-center,
+td.dt-center {
+  text-align: center;
+}
+
+body {
+  background-color: #F5F5F5;
+}
+
+.panel-default>.group-header {
+  background-color: #CFD8DC;
+  color: #263238;
+}
+
+.navbar-default {
+  background-color: #1976D2;
+  border-color: transparent;
+  border-radius: 0px;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover {
+  color: white;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #CFD8DC;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #ECEFF1;
+}
+
+.panel-group {
+  margin-top: 5em;
+}
+
+.table-groups {
+  margin-top: 5em;
+}
+
+.full-height-div {
+  height: 100vh;
+  background-color: #E0E0E0;
+  padding-right: 0px;
+}
 
 
-th.dt-center, td.dt-center { text-align: center; }
+/* table condensed */
+
+.table-condensed {
+  margin-right: 10px;
+  margin-left: 0px;
+}
+
+.table-condensed>thead>tr>th {
+  color: #616161;
+}
+
+.table-condensed>tbody>tr>td {
+  color: #757575;
+}
+
+.table>thead>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>th,
+.table>tbody>tr>td,
+.table>tfoot>tr>th,
+.table>tfoot>tr>td {
+  border: none;
+}
+
+.align-table-content {
+  text-align: center;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: #424242;
+  color: #fafafa;
+}
+
+.group-content {
+  margin-top: 5em;
+  -webkit-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+}
+
+.group-content>.panel-heading {
+  background-color: #E0E0E0;
+}
