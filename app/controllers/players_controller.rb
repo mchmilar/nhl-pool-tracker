@@ -10,10 +10,6 @@ class PlayersController < ApplicationController
     redirect_to root_url, notice: "Players imported"
   end
 
-  def update_stats
-
-  end
-
   def new
 
   end
@@ -21,12 +17,7 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
   end
-
-  def do_update_stats
-    flash[:updated_stats] = Player.update_stats
-    redirect_to players_path
-  end
-
+  
   private
 
   def player_params

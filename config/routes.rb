@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
 
 
+  get 'admin/panel', to: 'admin#panel'
+  post 'admin/update-player-stats', to: 'admin#update_player_stats'
+  post 'admin/import-groups', to: 'admin#import_groups'
+
   root 'players#index'
    get 'players', to: 'players#index'
-  get 'players/update-stats', to: 'players#update_stats'
-  post 'players/update-stats', to: 'players#do_update_stats'
   post 'import_players', to: 'players#import'
   get 'players/new', to: 'players#new'
   post 'players', to: 'players#create'
-  
-  get 'groups/import', to: 'groups#import'
-  post 'groups/import', to: 'groups#do_import'
+
   get 'groups', to: 'groups#index'
   
   get 'teams', to: 'teams#index'

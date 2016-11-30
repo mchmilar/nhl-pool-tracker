@@ -1,0 +1,38 @@
+<% if false %>
+<% @output.each do |player| %>
+  <%= player %> <br/>
+
+<% end %>
+<% end %>
+
+
+
+<div class="row">
+<h1>Update Stats</h1>
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:admin, url: admin_update_player_stats_path) do |f| %>
+        <%= f.submit "Update", class: "btn btn-primary" %>
+    <% end %>
+
+
+  </div>
+</div>
+
+
+
+<%= @response %>
+
+<div class="row">
+<h1>Import Groups</h1>
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:admin, url: admin_import_groups_path) do |f| %>
+
+        <%= f.label :import_url  %>
+        <%= f.text_field :import_url, class: 'form-control', value: 'http://www.officepools.com/nhl/classic/214525/data-2016.10.05.14.23.30.307415.js' %>
+
+        <%= f.submit "Import", class: "btn btn-primary" %>
+    <% end %>
+
+
+  </div>
+</div>
