@@ -38,6 +38,12 @@ class Group < ActiveRecord::Base
   def players
     Player.where(group_id: id)
   end
+
+  def total
+    self.players.inject(0) do |sum, player| 
+      sum + player[:pts] unless player[:pts].nil?
+    end
+  end
   
   def max_proj_pts
     sum = 0
