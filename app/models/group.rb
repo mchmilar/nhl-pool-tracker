@@ -39,9 +39,16 @@ class Group < ActiveRecord::Base
     Player.where(group_id: id)
   end
 
-  def total
+  # Group point total
+  def total_points
     self.players.inject(0) do |sum, player| 
       sum + player[:pts] unless player[:pts].nil?
+    end
+  end
+
+  def total_games
+    self.players.inject(0) do |sum, player|
+      sum + player[:gp] unless player[:gp].nil?
     end
   end
   
