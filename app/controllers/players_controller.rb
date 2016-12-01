@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
   def import
     Player.import(params[:file])
-    redirect_to root_url, notice: "Players imported"
+    redirect_to players_path, notice: "Players imported"
   end
 
   def new
