@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   get 'admin/panel', to: 'admin#panel'
   post 'admin/update-player-stats', to: 'admin#update_player_stats'
   post 'admin/import-groups', to: 'admin#import_groups'
+  post 'admin/update', to: 'admin#update_teams'
 
-  root 'players#index'
-   get 'players', to: 'players#index'
+  root 'groups#index'
+  get 'players', to: 'players#index'
   post 'import_players', to: 'players#import'
   get 'players/new', to: 'players#new'
   post 'players', to: 'players#create'
@@ -14,8 +15,6 @@ Rails.application.routes.draw do
   get 'groups', to: 'groups#index'
   
   get 'teams', to: 'teams#index'
-  get 'teams/update', to: 'teams#update'
-  post 'teams/update', to: 'teams#do_update'
   get 'teams/new', to: 'teams#new'
   post 'teams', to: 'teams#create'
   

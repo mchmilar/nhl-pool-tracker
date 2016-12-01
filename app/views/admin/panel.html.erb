@@ -1,38 +1,63 @@
-<% if false %>
-<% @output.each do |player| %>
-  <%= player %> <br/>
+<div class="container" style="margin-top:75px;">
+  <% if false %>
+  <% @output.each do |player| %>
+    <%= player %> <br/>
 
-<% end %>
-<% end %>
-
-
-
-<div class="row">
-<h1>Update Stats</h1>
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:admin, url: admin_update_player_stats_path) do |f| %>
-        <%= f.submit "Update", class: "btn btn-primary" %>
-    <% end %>
+  <% end %>
+  <% end %>
 
 
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_for(:admin, url: admin_update_player_stats_path) do |f| %>
+        <div class="form-group">
+          <div class="col-sm-10">
+            <%= f.submit "Update Player Stats", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
 
 
 
-<%= @response %>
+  <%= @response %>
 
-<div class="row">
-<h1>Import Groups</h1>
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:admin, url: admin_import_groups_path) do |f| %>
-
-        <%= f.label :import_url  %>
-        <%= f.text_field :import_url, class: 'form-control', value: 'http://www.officepools.com/nhl/classic/214525/data-2016.10.05.14.23.30.307415.js' %>
-
-        <%= f.submit "Import", class: "btn btn-primary" %>
-    <% end %>
-
-
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_for(:admin, url: admin_import_groups_path) do |f| %>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <%= f.label :import_url  %>
+              <%= f.text_field :import_url, class: 'form-control', value: 'http://www.officepools.com/nhl/classic/214525/data-2016.10.05.14.23.30.307415.js' %>
+              <%= f.submit "Import Groups", class: "btn btn-primary" %>
+            </div>
+          </div>
+      <% end %>
+    </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= form_for(:admin, url: admin_update_path) do |f| %>
+
+          <div class="form-group">
+            <div class="col-sm-10">
+              <%= f.submit "Update Teams", class: "btn btn-primary" %>
+            </div>
+          </div>
+
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3>Import a CSV Player List</h3>
+    <%= form_tag import_players_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import CSV" %>
+    <% end %>
+  </div>
+
 </div>
