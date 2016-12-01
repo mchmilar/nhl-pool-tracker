@@ -15,19 +15,19 @@
               </tr>
             </thead>
             <tbody>
-              <% @groups.each_with_index do |(id, group_hash), index| %>
-                <tr id='<%= id %>'>
+              <% @groups.each_with_index do |group, index| %>
+                <tr id='<%= group.id %>'>
                   <td class="align-table-content">
                     <%= index+1 %>
                   </td>
                   <td>
-                    <%= group_hash[:name] %>
+                    <%= group.name %>
                   </td>
                   <td class="align-table-content">
-                    <%= index+10 %>
+                    <%= group.top_points %>
                   </td>
                   <td class="align-table-content">
-                    <%= index+5 %>
+                    <%= group.top_points_per_game.round(2) %>
                   </td>
                   <td class="align-table-content">
                     <%= index+2 %>
@@ -38,10 +38,10 @@
           </table>
         </div>
         <div class="col-lg-8">
-          <% @groups.each_with_index do |(id, group_hash), index| %>
-            <div id='panel<%= id %>' class="panel panel-default group-content invisible-panel">
+          <% @groups.each_with_index do |group, index| %>
+            <div id='panel<%= group.id %>' class="panel panel-default group-content invisible-panel">
               <div class="panel-heading">
-                <%= group_hash[:name] %>
+                <%= group.name %>
               </div>
               <div class="panel-body">
                 <div id='collapse<%= index %>' role='tabpanel' aria-labelledby='heading<%= index %>'>
@@ -53,11 +53,12 @@
                           <th>Name</th>
                           <th>Team</th>
                           <th>Position</th>
+                          <th>Points</th>
                           <th>Projected Points</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% group_hash[:players].each do |player| %>
+                        <% group.players.each do |player| %>
                           <tr>
                             <td>
                               <%= player.draft_pos %>
@@ -71,9 +72,8 @@
                             <td>
                               <%= player.position %>
                             </td>
-                            <td>
-                              <%= player.lwl_pts %>
-                            </td>
+                            <td><%= player.pts %></td>
+                            <td><%= player.lwl_pts %></td>
                           </tr>
                           <% end %>
                       </tbody>

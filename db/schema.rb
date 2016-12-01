@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125172851) do
+ActiveRecord::Schema.define(version: 20161201215758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,27 +23,27 @@ ActiveRecord::Schema.define(version: 20161125172851) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
-    t.integer  "lwl_rank"
-    t.integer  "lwl_pts"
-    t.integer  "pts"
-    t.integer  "gp"
+    t.integer  "lwl_rank",   default: 999
+    t.integer  "lwl_pts",    default: 0
+    t.integer  "pts",        default: 0
+    t.integer  "gp",         default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
     t.integer  "team_id"
     t.string   "position"
     t.integer  "draft_pos"
-    t.integer  "goals"
-    t.integer  "assists"
-    t.integer  "points"
-    t.integer  "ppg"
-    t.integer  "ppp"
-    t.integer  "shg"
-    t.integer  "shp"
-    t.integer  "gwg"
-    t.integer  "shots"
-    t.decimal  "s_pct"
-    t.decimal  "atoi"
+    t.integer  "goals",      default: 0
+    t.integer  "assists",    default: 0
+    t.integer  "points",     default: 0
+    t.integer  "ppg",        default: 0
+    t.integer  "ppp",        default: 0
+    t.integer  "shg",        default: 0
+    t.integer  "shp",        default: 0
+    t.integer  "gwg",        default: 0
+    t.integer  "shots",      default: 0
+    t.decimal  "s_pct",      default: 0.0
+    t.decimal  "atoi",       default: 0.0
   end
 
   create_table "teams", force: :cascade do |t|

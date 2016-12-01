@@ -9,6 +9,7 @@ class Group < ActiveRecord::Base
   
   BASE_PLAYER_URL = "http://www.officepools.com/nhl/entity/player/"
   NUM_PLAYERS_PER_GROUP = 12
+  NUM_PLAYERS_SELECTED_FOR_SCORING = 10
   
   def self.batch_import(pool_data_uri)
     Group.destroy_all
@@ -36,20 +37,45 @@ class Group < ActiveRecord::Base
   end
   
   def players
-    Player.where(group_id: id)
+    Player.where(group_id: self.id)
+  end
+
+  def top_players
+    players = Player.where(group_id: self.id).sort_by { |player| -player.pts }
+    players = players.take(NUM_PLAYERS_SELECTED_FOR_SCORING)
   end
 
   # Group point total
   def total_points
-    self.players.inject(0) do |sum, player| 
-      sum + player[:pts] unless player[:pts].nil?
+    self.players.inject(0) do |sum, player|
+      player[:pts].nil? ? 0 : sum + player[:pts]
+    end
+  end
+
+  def top_points
+    self.top_players.inject(0) do |sum, player|
+      player[:pts].nil? ? 0 : sum + player[:pts]
     end
   end
 
   def total_games
     self.players.inject(0) do |sum, player|
-      sum + player[:gp] unless player[:gp].nil?
+      player.gp.nil? ? 0 : sum + player.gp
     end
+  end
+
+  def top_games
+    self.top_players.inject(0) do |sum, player|
+      player.gp.nil? ? 0 : sum + player.gp
+    end
+  end
+
+  def points_per_game
+    self.total_points / self.total_games.to_f
+  end
+
+  def top_points_per_game
+    self.top_points / self.top_games.to_f
   end
   
   def max_proj_pts
@@ -66,6 +92,10 @@ class Group < ActiveRecord::Base
     sum
   end
   
+  def self.sorted_array
+    Group.all.sort_by { |group| -group.total_points }
+  end
+
   def self.sorted_hash
     groups = Group.all
     groups_hash = Hash.new

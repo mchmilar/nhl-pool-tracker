@@ -69,11 +69,11 @@ body {
 }
 
 .table-condensed>thead>tr>th {
-  color: #616161;
+  color: black;
 }
 
 .table-condensed>tbody>tr>td {
-  color: #757575;
+  color: black;
 }
 
 .table>thead>tr>th,
@@ -103,9 +103,14 @@ body {
 }
 
 .group-content>.panel-heading {
-  background-color: #E0E0E0;
+  background-color: white;
 }
 
 .invisible-panel {
   display: none;
+  border-bottom: none;
+}
+
+th {
+  font-weight: 500;
 }
