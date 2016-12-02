@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  before_action :logged_in_user
+
   def panel
   end
 
@@ -22,5 +24,13 @@ class AdminController < ApplicationController
       flash.now[:danger] = "Error updating teams."
     end
     render 'panel'
+  end
+
+  private
+  
+  # Before filters
+
+  def logged_in_user
+    redirect_to login_path, notice: "Please login." unless logged_in?
   end
 end

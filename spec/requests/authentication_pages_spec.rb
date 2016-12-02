@@ -36,4 +36,21 @@ describe "Authentication" do
       end
     end
   end
+
+  describe "authorization" do 
+
+    describe "for non-logged-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "visiting the admin panel page" do
+        before { visit admin_panel_path }
+        it { should have_title('Log in | NHL Pool Tracker') }
+      end
+
+      describe "submitting to the update player stats" do
+        before { post admin_update_player_stats_path }
+        specify { expect(response).to redirect_to(login_path) }        
+      end
+    end
+  end
 end
