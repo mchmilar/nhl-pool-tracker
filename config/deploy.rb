@@ -1,4 +1,3 @@
-require "bundler/capistrano"
 # config valid only for current version of Capistrano
 lock '3.6.1'
 
@@ -11,7 +10,7 @@ set :repo_url, 'git@github.com:mchmilar/nhl-pool-tracker.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/deploy/#{APP_NAME}"
+set :deploy_to, "/home/deploy-rails/#{APP_NAME}"
 
 # Default value for :scm is :git
 # set :scm, :git
