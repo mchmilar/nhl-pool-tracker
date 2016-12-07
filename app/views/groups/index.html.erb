@@ -41,7 +41,7 @@
           <% @groups.each_with_index do |group, index| %>
             <div id='panel<%= group.id %>' class="panel panel-default group-content invisible-panel">
               <div class="panel-heading">
-                <%= group.name %>
+                <%= group.name %> <%= group.efp %>
               </div>
               <div class="panel-body">
                 <div id='collapse<%= index %>' role='tabpanel' aria-labelledby='heading<%= index %>'>
@@ -52,28 +52,26 @@
                           <th>Draft Pos.</th>
                           <th>Name</th>
                           <th>Team</th>
-                          <th>Position</th>
+                          <th>Pos</th>
+                          <th>GP</th>
                           <th>Points</th>
-                          <th>Projected Points</th>
+                          <th>EP</th>
+                          <th>EFP</th>
+                          <th>PVE</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% group.players.each do |player| %>
                           <tr>
-                            <td>
-                              <%= player.draft_pos %>
-                            </td>
-                            <td>
-                              <%= player.name %>
-                            </td>
-                            <td>
-                              <%= player.team_abbrev %>
-                            </td>
-                            <td>
-                              <%= player.position %>
-                            </td>
+                            <td><%= player.draft_pos %></td>
+                            <td><%= player.name %></td>
+                            <td><%= player.team_abbrev %></td>
+                            <td><%= player.position %></td>
+                            <td><%= player.gp %></td>
                             <td><%= player.pts %></td>
                             <td><%= player.lwl_pts %></td>
+                            <td><%= player.efp %></td>
+                            <td><%= player.pve %></td>
                           </tr>
                           <% end %>
                       </tbody>

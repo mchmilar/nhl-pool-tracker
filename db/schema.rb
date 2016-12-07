@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201215758) do
+ActiveRecord::Schema.define(version: 20161207220558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,27 @@ ActiveRecord::Schema.define(version: 20161201215758) do
     t.string  "name"
     t.integer "op_id_number"
   end
+
+  create_table "player_stat_histories", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.integer  "pts"
+    t.integer  "gp"
+    t.integer  "goals"
+    t.integer  "assists"
+    t.integer  "ppg"
+    t.integer  "shg"
+    t.integer  "shp"
+    t.integer  "shots"
+    t.decimal  "s_pct"
+    t.decimal  "atoi"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "ppp"
+    t.date     "date"
+  end
+
+  add_index "player_stat_histories", ["player_id"], name: "index_player_stat_histories_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name"

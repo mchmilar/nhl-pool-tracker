@@ -46,7 +46,51 @@ class Player < ActiveRecord::Base
       "None"
     end
   end
+
+  # Expected final point total at the end of the year
+  def efp
+    (pts + prjct_pts_game * remaining_games).round(0)
+  end
+
+  # Number of remaining games left
+  def remaining_games
+    (team_id) ? 82 - Team.find(team_id).gamesPlayed : 0
+  end
+
+  # Performance versus expected
+  def pve
+    (pts - (prjct_pts_game * gp)).round(2)
+  end
   
+  def take_snapshot
+    stats = {
+      player_id: id,
+      team_id: team_id,
+      pts: pts,
+      gp: gp,
+      goals: goals,
+      assists: assists,
+      ppp: ppp,
+      ppg: ppg,
+      shg: shg,
+      shp: shp,
+      shots: shots,
+      s_pct: s_pct,
+      atoi: atoi
+    }
+
+    # If a player already has an entry for this date we update it
+    player_history = PlayerStatHistory.where(player_id: id, date: Date.parse(Time.now.to_s[0,10]))
+    (player_history.length == 0) ? (PlayerStatHistory.create(stats)) : (player_history[0].update(stats))
+  end
+
+  # Should be moved to separate module?
+  def self.batch_snapshot
+    players = Player.all
+    players.each { |player| player.take_snapshot }
+  end
+
+  # Should be moved to separate module?
   def self.import(file)
     Player.destroy_all
     CSV.foreach(file.path, headers: true) do |row|
@@ -59,6 +103,7 @@ class Player < ActiveRecord::Base
     end
   end
   
+  # Should be moved to separate module?
   def self.update_stats
     players_stats = JSON.parse(open(STATS_SCRAPE_URL).read)
     failed_array = Array.new
@@ -101,6 +146,7 @@ class Player < ActiveRecord::Base
     failed_array
   end
 
+  # Should be moved to separate module?
   def self.add_player(name, gp, points, g, a, ppg, ppp, shg, shp, gwg, sog, s_pct, atoi)
     # If we already have a player with the same last name in our database
     # we will have to manually deal with the player as sometimes there are

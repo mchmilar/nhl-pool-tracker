@@ -104,6 +104,11 @@ class Group < ActiveRecord::Base
     end
     groups_hash.sort_by { |k, v| v[:name] }
   end
+
+  # Expected final point total of group
+  def efp
+    top_players.inject(0) { |sum, player| player.efp + sum }
+  end
     
 private
 
