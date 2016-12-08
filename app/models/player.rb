@@ -61,6 +61,12 @@ class Player < ActiveRecord::Base
   def pve
     (pts - (prjct_pts_game * gp)).round(2)
   end
+
+  # Get all players taken in the same round
+  def draft_class(order_by='pts', order='DESC')
+    players = Player.where(draft_pos: draft_pos)
+    players.order("#{order_by} #{order.upcase}")
+  end
   
   def take_snapshot
     stats = {
