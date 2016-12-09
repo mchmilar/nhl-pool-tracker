@@ -36,7 +36,7 @@ gem 'jquery-datatables-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'log4r'
-
+gem "highcharts-rails"
 gem 'materialize-sass'
 
 # Use Unicorn as the app server

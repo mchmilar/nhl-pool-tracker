@@ -63,9 +63,10 @@ class Player < ActiveRecord::Base
   end
 
   # Get all players taken in the same round
-  def draft_class(order_by='pts', order='DESC')
+  def draft_class(options={})
+    options = {stat: 'pts', order: 'desc'}.merge(options)
     players = Player.where(draft_pos: draft_pos)
-    players.order("#{order_by} #{order.upcase}")
+    players.order("#{options[:stat]} #{options[:order].upcase}")
   end
   
   def take_snapshot

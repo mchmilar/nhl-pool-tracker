@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   post 'admin/update', to: 'admin#update_teams'
 
   root 'groups#index'
+
   get 'players', to: 'players#index'
   post 'import_players', to: 'players#import'
   get 'players/new', to: 'players#new'
   post 'players', to: 'players#create'
+  get 'players/:id', to: 'players#show'
 
   get 'groups', to: 'groups#index'
   
