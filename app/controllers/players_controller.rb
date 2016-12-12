@@ -16,6 +16,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find(params[:id])
+    @player_class = @player.draft_class
   end
 
   def create

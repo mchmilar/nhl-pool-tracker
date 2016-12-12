@@ -83,11 +83,12 @@ class Player < ActiveRecord::Base
       shp: shp,
       shots: shots,
       s_pct: s_pct,
-      atoi: atoi
+      atoi: atoi,
+      date: Time.now.to_s[0,10]
     }
 
     # If a player already has an entry for this date we update it
-    player_history = PlayerStatHistory.where(player_id: id, date: Date.parse(Time.now.to_s[0,10]))
+    player_history = PlayerStatHistory.where(player_id: id, date: Time.now.to_s[0,10])
     (player_history.length == 0) ? (PlayerStatHistory.create(stats)) : (player_history[0].update(stats))
   end
 

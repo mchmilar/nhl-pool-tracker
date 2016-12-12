@@ -1,5 +1,5 @@
 #!/bin/bash
-NHL_HOME=/home/emarchm/Work/rails-projects/RubymineProjects/nhl-pool-tracker
-cd ${NHL_HOME}/lib/tasks
-RAILS_ENV=development
-rake cron --silent > ${NHL_HOME}/log/cron.log 2>&1
+source $(dirname "$0")/config/cron.cfg
+cd $(dirname "$0")/lib/tasks
+echo $PWD >> $(dirname "$0")/log/cron.log
+${HOME}/.rbenv/shims/rake cron >> ${NHL_HOME}/log/cron.log 2>&1
