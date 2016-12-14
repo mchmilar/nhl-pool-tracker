@@ -1,34 +1,8 @@
-<script>
-	$(function () { 
-    var myChart = Highcharts.chart('points', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }]
-    });
-});
-</script>
-
+<%= javascript_include_tag "application", "players_show" %>
+<% provide(:title, @player.name) %>
 <div class="row" style="margin-top:75px; margin-left:20px;">
 	<p><%= @player.name %></p>
 	<div id="points">
-
+		<%= @player.draft_class.each {|x| x} %>
 	</div>
 </div>

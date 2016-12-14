@@ -34,7 +34,7 @@ gem 'rake', '11.3.0'
 gem 'jquery-datatables-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'gon'
 gem 'log4r'
 gem "highcharts-rails"
 gem 'materialize-sass'

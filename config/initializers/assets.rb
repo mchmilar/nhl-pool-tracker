@@ -9,3 +9,9 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+%w( groups players admin sessions teams users ).each do |controller|
+  Rails.application.config.assets.precompile += ["#{controller}.coffee", "#{controller}.scss"]
+end
+Rails.application.config.assets.precompile += %w( players_show.js )
+Rails.application.config.assets.precompile += %w( images.js )

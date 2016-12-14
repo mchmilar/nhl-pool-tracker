@@ -2,7 +2,6 @@ class PlayersController < ApplicationController
 
   def index
     @players = Player.order('pts IS NULL, pts DESC')
-    logger.debug "In Players#index"
   end
 
   def import
@@ -16,7 +15,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find(params[:id])
-    @player_class = @player.draft_class
+    gon.player_class = @player.draft_class
   end
 
   def create

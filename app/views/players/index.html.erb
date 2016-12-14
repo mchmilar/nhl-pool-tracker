@@ -1,7 +1,7 @@
-<div class="row" style="margin-top:75px;">
-  <% provide(:title, 'Players') %>
+<% provide(:title, 'Players') %>
 
-  <% if flash[:updated_stats] %>
+<div class="row" style="margin-top:75px;">
+    <% if flash[:updated_stats] %>
     <% flash[:updated_stats].each do |player| %>
         <%= player %> <br/>
     <% end %>

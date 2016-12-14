@@ -6,7 +6,9 @@ class AdminController < ApplicationController
 
   def update_player_stats
   	flash[:updated_stats] = Player.update_stats
-    redirect_to players_path
+    respond_to do |format|
+      format.html {redirect_to players_path}
+    end    
   end
 
   def import_groups
