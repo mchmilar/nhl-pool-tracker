@@ -15,7 +15,13 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find(params[:id])
-    gon.player_class = @player.draft_class
+    @player_class = @player.draft_class 
+
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @player_class }
+    end
   end
 
   def create

@@ -64,9 +64,14 @@ class Player < ActiveRecord::Base
 
   # Get all players taken in the same round
   def draft_class(options={})
-    options = {stat: 'pts', order: 'desc'}.merge(options)
+    options = {stat: 'pts', order: 'desc', all_columns: false}.merge(options)
     players = Player.where(draft_pos: draft_pos)
-    players.order("#{options[:stat]} #{options[:order].upcase}")
+
+    if options[:all_columns]
+      return players.order("#{options[:stat]} #{options[:order].upcase}") 
+    end
+    players.to_a.map(&:serializable_hash).each {|player| player.slice!('name', options[:stat])}
+
   end
   
   def take_snapshot
