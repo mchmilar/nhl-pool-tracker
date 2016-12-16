@@ -8,11 +8,13 @@ Rails.application.routes.draw do
 
   root 'groups#index'
 
+  resources :players
   get 'players', to: 'players#index'
+  get 'players/:id', to: 'players#show'
   post 'import_players', to: 'players#import'
   get 'players/new', to: 'players#new'
   post 'players', to: 'players#create'
-  get 'players/:id', to: 'players#show'
+  
 
   get 'groups', to: 'groups#index'
   

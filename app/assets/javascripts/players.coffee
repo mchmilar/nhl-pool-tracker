@@ -1,5 +1,5 @@
 
-$(document).ready ->
+$(document).on "turbolinks:load", ->
   $('#players').dataTable
     'lengthMenu': [
       [
@@ -21,4 +21,5 @@ $(document).ready ->
       className: 'dt-center'
       'targets': '_all'
     } ]
+    'autoWidth': 'false'
   return

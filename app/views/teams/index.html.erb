@@ -1,50 +1,52 @@
-<div class="row" style="margin-top:75px;">
-  <table id="teams" class="table table-striped table-hover players-table">
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>GP</th>
-        <th>W</th>
-        <th>L</th>
-        <th>T</th>
-        <th>OT</th>
-        <th>P</th>
-        <th>ROW</th>
-        <th>P%</th>
-        <th>GF</th>
-        <th>GA</th>
-        <th>GF/GP</th>
-        <th>GA/GP</th>
-        <th>PP%</th>
-        <th>PK%</th>
-        <th>SF/GP</th>
-        <th>SA/GP</th>
-        <th>FOW%</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @teams.each do |team| %>
+<div class="container">
+  <div class="row" style="margin-top:75px;">
+    <table id="teams" class="table table-striped table-hover players-table">
+      <thead>
         <tr>
-          <td><%= team.teamFullName %></td>
-          <td><%= team.gamesPlayed %></td>
-          <td><%= team.wins %></td>
-          <td><%= team.losses %></td>
-          <td><%= team.ties %></td>
-          <td><%= team.otLosses %></td>
-          <td><%= team.points %></td>
-          <td><%= team.regPlusOtWins %></td>
-          <td><%= team.pointPctg.round(2) %></td>
-          <td><%= team.goalsFor %></td>
-          <td><%= team.goalsAgainst %></td>
-          <td><%= team.goalsForPerGame.round(2) %></td>
-          <td><%= team.goalsAgainstPerGame.round(2) %></td>
-          <td><%= team.ppPctg.round(2) %></td>
-          <td><%= team.pkPctg.round(2) %></td>
-          <td><%= team.shotsForPerGame.round(2) %></td>
-          <td><%= team.shotsAgainstPerGame.round(2) %></td>
-          <td><%= team.faceoffWinPctg.round(2) %></td>
+          <th>Team</th>
+          <th>GP</th>
+          <th>W</th>
+          <th>L</th>
+          <th>T</th>
+          <th>OT</th>
+          <th>P</th>
+          <th>ROW</th>
+          <th>P%</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GF/GP</th>
+          <th>GA/GP</th>
+          <th>PP%</th>
+          <th>PK%</th>
+          <th>SF/GP</th>
+          <th>SA/GP</th>
+          <th>FOW%</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr>
+            <td><%= team.teamFullName %></td>
+            <td><%= team.gamesPlayed %></td>
+            <td><%= team.wins %></td>
+            <td><%= team.losses %></td>
+            <td><%= team.ties %></td>
+            <td><%= team.otLosses %></td>
+            <td><%= team.points %></td>
+            <td><%= team.regPlusOtWins %></td>
+            <td><%= team.pointPctg.round(2) %></td>
+            <td><%= team.goalsFor %></td>
+            <td><%= team.goalsAgainst %></td>
+            <td><%= team.goalsForPerGame.round(2) %></td>
+            <td><%= team.goalsAgainstPerGame.round(2) %></td>
+            <td><%= team.ppPctg.round(2) %></td>
+            <td><%= team.pkPctg.round(2) %></td>
+            <td><%= team.shotsForPerGame.round(2) %></td>
+            <td><%= team.shotsAgainstPerGame.round(2) %></td>
+            <td><%= team.faceoffWinPctg.round(2) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

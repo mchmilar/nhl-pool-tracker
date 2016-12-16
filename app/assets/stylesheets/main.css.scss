@@ -18,6 +18,12 @@ td.dt-center {
   text-align: center;
 }
 
+@media (min-width: 1700px) {
+  .container {
+    width: 1600px;
+  }
+}
+
 body {
   background-color: #F5F5F5;
 }
