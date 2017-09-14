@@ -44,7 +44,7 @@
             <td><%= player.pts %></td>
             <td><%= player.prjct_pts_game.round(2) %></td>
             <td><%= player.pts_game.round(2) %></td>
-            <td><%= (player.prjct_pts_game.round(2) - player.pts_game.round(2)).round(2) %></td>
+            <td><%= (player.pts_game - player.prjct_pts_game).round(2) %></td>
             <td><%= player.gp %></td>
             <td><%= player.goals %></td>
             <td><%= player.assists %></td>
