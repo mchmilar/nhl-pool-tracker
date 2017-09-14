@@ -20,6 +20,7 @@
           <th>Proj P/G</th>
           <th>CP/G</th>
           <th>DIFF</th>
+          <th>GP</th>
           <th>G</th>
           <th>A</th>
           <th>PPG</th>
@@ -44,6 +45,7 @@
             <td><%= player.prjct_pts_game.round(2) %></td>
             <td><%= player.pts_game.round(2) %></td>
             <td><%= (player.prjct_pts_game.round(2) - player.pts_game.round(2)).round(2) %></td>
+            <td><%= player.gp %></td>
             <td><%= player.goals %></td>
             <td><%= player.assists %></td>
             <td><%= player.ppg %></td>
