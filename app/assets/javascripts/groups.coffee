@@ -4,4 +4,5 @@ $(document).on "turbolinks:load", ->
     'searching': false
     'paging': false
     'info': false
+    'autoWidth': false
   return

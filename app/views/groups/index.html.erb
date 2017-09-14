@@ -63,15 +63,15 @@
                       <tbody>
                         <% group.players.each do |player| %>
                           <tr>
-                            <td><%= player.draft_pos %></td>
-                            <td><%= player.name %></td>
-                            <td><%= player.team_abbrev %></td>
-                            <td><%= player.position %></td>
-                            <td><%= player.gp %></td>
-                            <td><%= player.pts %></td>
-                            <td><%= player.lwl_pts %></td>
-                            <td><%= player.efp %></td>
-                            <td><%= player.pve %></td>
+                            <td class="player-hoverable"><%= player.draft_pos %></td>
+                            <td class="player-hoverable"><%= player.name %></td>
+                            <td class="player-hoverable"><%= player.team_abbrev %></td>
+                            <td class="player-hoverable"><%= player.position %></td>
+                            <td class="player-hoverable"><%= player.gp %></td>
+                            <td class="player-hoverable"><%= player.pts %></td>
+                            <td class="player-hoverable"><%= player.lwl_pts %></td>
+                            <td class="player-hoverable"><%= player.efp %></td>
+                            <td class="player-hoverable"><%= player.pve %></td>
                           </tr>
                           <% end %>
                       </tbody>
@@ -85,6 +85,9 @@
         <div class="col-lg-1"></div>
       </div>
     </div>
+
+    <div id="dialog">
+    </div>
     
     <script type="text/javascript">
       $(document).ready(function(){
@@ -93,6 +96,17 @@
           var id = $(this).get(0).id;
            $(".group-content").addClass("invisible-panel");
            $("#panel" + id).removeClass("invisible-panel");
+        });
+
+        var $dialog = $("dialog").dialog({
+          buttons: [
+          {
+            text: "ok"
+          }]
+        });
+
+        $('.player-hoverable').hover(function() {
+          $dialog.open;
         });
       });
     </script>

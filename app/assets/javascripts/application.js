@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require dataTables/jquery.dataTables
