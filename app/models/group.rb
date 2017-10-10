@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
   validates :name, presence: true, uniqueness: {case_sensitive: false }
   validates :op_id_number, presence: true, uniqueness: { case_sensitive: false }
   
-  BASE_PLAYER_URL = "http://www.officepools.com/nhl/entity/player/"
+  BASE_PLAYER_URL = "https://www.officepools.com/nhl/entity/player/"
   NUM_PLAYERS_PER_GROUP = 12
   NUM_PLAYERS_SELECTED_FOR_SCORING = 10
   
@@ -177,8 +177,14 @@ private
     return true
   end
   
+=begin
+<h1 id="page-title">
+                                        Stats for player Karlsson, Erik #65 (D)  - Ottawa Senators - NHL 2017/18 Regular
+                                    </h1>
+=end
+
   def self.parse_player_name(html_response)
-    output = html_response.css('h1#page-title')[0].text.split("#")[0][18..-1].split(",")
+    output = html_response.css('h1#page-title')[0].text.split("player ")[1].split("#")[0].split(", ")
     output[1].strip << " " << output[0]
   end
   

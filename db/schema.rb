@@ -11,95 +11,92 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207220558) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20171005202716) do
 
   create_table "groups", force: :cascade do |t|
-    t.string  "name"
-    t.integer "op_id_number"
+    t.string  "name",         limit: 255
+    t.integer "op_id_number", limit: 4
   end
 
   create_table "player_stat_histories", force: :cascade do |t|
-    t.integer  "player_id"
-    t.integer  "team_id"
-    t.integer  "pts"
-    t.integer  "gp"
-    t.integer  "goals"
-    t.integer  "assists"
-    t.integer  "ppg"
-    t.integer  "shg"
-    t.integer  "shp"
-    t.integer  "shots"
-    t.decimal  "s_pct"
-    t.decimal  "atoi"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "ppp"
+    t.integer  "player_id",  limit: 4
+    t.integer  "team_id",    limit: 4
+    t.integer  "pts",        limit: 4
+    t.integer  "gp",         limit: 4
+    t.integer  "goals",      limit: 4
+    t.integer  "assists",    limit: 4
+    t.integer  "ppg",        limit: 4
+    t.integer  "shg",        limit: 4
+    t.integer  "shp",        limit: 4
+    t.integer  "shots",      limit: 4
+    t.decimal  "s_pct",                precision: 10
+    t.decimal  "atoi",                 precision: 10
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "ppp",        limit: 4
     t.date     "date"
   end
 
   add_index "player_stat_histories", ["player_id"], name: "index_player_stat_histories_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "lwl_rank",   default: 999
-    t.integer  "lwl_pts",    default: 0
-    t.integer  "pts",        default: 0
-    t.integer  "gp",         default: 0
+    t.string   "name",       limit: 255
+    t.integer  "lwl_rank",   limit: 4,                  default: 999
+    t.integer  "lwl_pts",    limit: 4,                  default: 0
+    t.integer  "pts",        limit: 4,                  default: 0
+    t.integer  "gp",         limit: 4,                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_id"
-    t.integer  "team_id"
-    t.string   "position"
-    t.integer  "draft_pos"
-    t.integer  "goals",      default: 0
-    t.integer  "assists",    default: 0
-    t.integer  "points",     default: 0
-    t.integer  "ppg",        default: 0
-    t.integer  "ppp",        default: 0
-    t.integer  "shg",        default: 0
-    t.integer  "shp",        default: 0
-    t.integer  "gwg",        default: 0
-    t.integer  "shots",      default: 0
-    t.decimal  "s_pct",      default: 0.0
-    t.decimal  "atoi",       default: 0.0
+    t.integer  "group_id",   limit: 4
+    t.string   "team_id",    limit: 255
+    t.string   "position",   limit: 255
+    t.integer  "draft_pos",  limit: 4
+    t.integer  "goals",      limit: 4,                  default: 0
+    t.integer  "assists",    limit: 4,                  default: 0
+    t.integer  "points",     limit: 4,                  default: 0
+    t.integer  "ppg",        limit: 4,                  default: 0
+    t.integer  "ppp",        limit: 4,                  default: 0
+    t.integer  "shg",        limit: 4,                  default: 0
+    t.integer  "shp",        limit: 4,                  default: 0
+    t.integer  "gwg",        limit: 4,                  default: 0
+    t.integer  "shots",      limit: 4,                  default: 0
+    t.decimal  "s_pct",                  precision: 10, default: 0
+    t.decimal  "atoi",                   precision: 10, default: 0
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "teamFullName"
-    t.integer  "gamesPlayed"
-    t.integer  "wins"
-    t.integer  "losses"
-    t.integer  "otLosses"
-    t.integer  "points"
-    t.integer  "regPlusOtWins"
-    t.integer  "goalsFor"
-    t.integer  "goalsAgainst"
-    t.decimal  "ppPctg"
-    t.decimal  "pkPctg"
-    t.decimal  "shotsForPerGame"
-    t.decimal  "shotsAgainstPerGame"
-    t.decimal  "faceoffWinPctg"
+    t.string   "teamFullName",        limit: 255
+    t.integer  "gamesPlayed",         limit: 4
+    t.integer  "wins",                limit: 4
+    t.integer  "losses",              limit: 4
+    t.integer  "otLosses",            limit: 4
+    t.integer  "points",              limit: 4
+    t.integer  "regPlusOtWins",       limit: 4
+    t.integer  "goalsFor",            limit: 4
+    t.integer  "goalsAgainst",        limit: 4
+    t.decimal  "ppPctg",                          precision: 10
+    t.decimal  "pkPctg",                          precision: 10
+    t.decimal  "shotsForPerGame",                 precision: 10
+    t.decimal  "shotsAgainstPerGame",             precision: 10
+    t.decimal  "faceoffWinPctg",                  precision: 10
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "teamAbbrev"
-    t.decimal  "goalsAgainstPerGame"
-    t.decimal  "goalsForPerGame"
-    t.decimal  "pointPctg"
-    t.string   "seasonId"
-    t.integer  "ties"
-    t.integer  "shootoutGamesWon"
+    t.string   "teamAbbrev",          limit: 255
+    t.decimal  "goalsAgainstPerGame",             precision: 10
+    t.decimal  "goalsForPerGame",                 precision: 10
+    t.decimal  "pointPctg",                       precision: 10
+    t.string   "seasonId",            limit: 255
+    t.integer  "ties",                limit: 4
+    t.integer  "shootoutGamesWon",    limit: 4
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "password_digest"
-    t.string   "remember_token"
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "password_digest", limit: 255
+    t.string   "remember_token",  limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

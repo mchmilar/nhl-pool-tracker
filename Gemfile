@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'pg'
+#gem 'pg'
+gem 'mysql2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 gem 'jquery-ui-rails'
@@ -29,7 +30,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'rake', '11.3.0'
+gem 'rake', '12.1.0'
 
 gem 'jquery-datatables-rails'
 # Use ActiveModel has_secure_password

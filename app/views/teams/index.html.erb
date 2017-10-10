@@ -40,7 +40,7 @@
             <td><%= team.goalsForPerGame.round(2) %></td>
             <td><%= team.goalsAgainstPerGame.round(2) %></td>
             <td><%= team.ppPctg.round(2) %></td>
-            <td><%= team.pkPctg.round(2) %></td>
+            <td><%= ((team.pkPctg.nil?) ? "0" : team.pkPctg.round(2)) %></td>
             <td><%= team.shotsForPerGame.round(2) %></td>
             <td><%= team.shotsAgainstPerGame.round(2) %></td>
             <td><%= team.faceoffWinPctg.round(2) %></td>
