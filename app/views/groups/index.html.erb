@@ -1,9 +1,9 @@
 <%= flash[:notice] %>
   <% provide(:title, 'Groups') %>
-    <div>
+    <div class="container-fluid">
       <!-- main page row -->
       <div class="row">
-        <div class="col-lg-3 full-height-div">
+        <div class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
           <table class="table table-condensed table-hover table-groups">
             <thead>
               <tr>
@@ -33,52 +33,56 @@
             </tbody>
           </table>
         </div>
-        <div class="col-lg-8">
-          <% @groups.each_with_index do |group, index| %>
-            <div id='panel<%= group.id %>' class="panel panel-default group-content invisible-panel">
-              <div class="panel-heading">
-                <%= group.name %> <%= group.efp %>
-              </div>
-              <div class="panel-body">
-                <div id='collapse<%= index %>' role='tabpanel' aria-labelledby='heading<%= index %>'>
-                  <div class='panel-body'>
-                    <table id='group-table-#{id}' class='table table-striped table-hover players-table group-inner-table table-condensed'>
-                      <thead>
+
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-5" role="main">
+        <% @groups.each_with_index do |group, index| %>
+          <div id='panel<%= group.id %>' class="panel panel-default group-content invisible-panel">
+            <div class="panel-heading">
+              <%= group.name %> <%= group.efp %>
+            </div>
+            <div class="panel-body">
+              <div id='collapse<%= index %>' role='tabpanel' aria-labelledby='heading<%= index %>'>
+                <div class='panel-body'>
+                  <table id='group-table-#{id}' class='table table-striped table-hover players-table group-inner-table table-condensed'>
+                    <thead>
+                      <tr>
+                        <th>DP</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Pos</th>
+                        <th>GP</th>
+                        <th>P</th>
+                        <th>EP</th>
+                        <th>EFP</th>
+                        <th>PVE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% group.players.each do |player| %>
                         <tr>
-                          <th>Draft Pos.</th>
-                          <th>Name</th>
-                          <th>Team</th>
-                          <th>Pos</th>
-                          <th>GP</th>
-                          <th>Points</th>
-                          <th>EP</th>
-                          <th>EFP</th>
-                          <th>PVE</th>
+                          <td class="player-hoverable"><%= player.draft_pos %></td>
+                          <td class="player-hoverable player-link" data-player-id="<%= player.id %>" data-player-round="<%= player.draft_pos %>" data-player-name="<%= player.name %>"><%= player.name %></td>
+                          <td class="player-hoverable"><%= player.team_abbrev %></td>
+                          <td class="player-hoverable"><%= player.position %></td>
+                          <td class="player-hoverable"><%= player.gp %></td>
+                          <td class="player-hoverable"><%= player.pts %></td>
+                          <td class="player-hoverable"><%= player.lwl_pts %></td>
+                          <td class="player-hoverable"><%= player.efp %></td>
+                          <td class="player-hoverable"><%= player.pve %></td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <% group.players.each do |player| %>
-                          <tr>
-                            <td class="player-hoverable"><%= player.draft_pos %></td>
-                            <td class="player-hoverable"><%= player.name %></td>
-                            <td class="player-hoverable"><%= player.team_abbrev %></td>
-                            <td class="player-hoverable"><%= player.position %></td>
-                            <td class="player-hoverable"><%= player.gp %></td>
-                            <td class="player-hoverable"><%= player.pts %></td>
-                            <td class="player-hoverable"><%= player.lwl_pts %></td>
-                            <td class="player-hoverable"><%= player.efp %></td>
-                            <td class="player-hoverable"><%= player.pve %></td>
-                          </tr>
-                          <% end %>
-                      </tbody>
-                    </table>
-                  </div>
+                        <% end %>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-            <% end %>
-        </div>
-        <div class="col-lg-1"></div>
+          </div>
+          <% end %>
+        </main>
+        <div class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          <div id="player-points" class="">
+          </div>
+        </div> 
       </div>
     </div>
 
@@ -86,13 +90,90 @@
     </div>
     
     <script type="text/javascript">
+      var chartOptions;
+      var chart;
       $(document).ready(function(){
         $(".group-content:first").removeClass("invisible-panel");
+
         $('.table-groups > tbody > tr').click(function(){
           var id = $(this).get(0).id;
            $(".group-content").addClass("invisible-panel");
            $("#panel" + id).removeClass("invisible-panel");
         });
+
+        $(".player-link").click(function() {
+          id = $(this).attr("data-player-id");
+          name = $(this).attr("data-player-name");
+          round = $(this).attr("data-player-round");
+          $.ajax({
+            type: 'GET',
+            url: '/players/' + id,
+            dataType: 'json',
+            success: function(json, textStatus, jqXHR) {
+              //console.log(json);
+              chartOptions.series[0].data = json;
+              //console.log(chartOptions);
+              //console.log(chartOptions.series[0].data);
+              chartOptions.title.text=  name + "'s Points vs Round " +round+ "Picks";
+              chart = new Highcharts.chart(chartOptions);
+            },
+            error: function(jqHXR, textStatus, errorThrown) {
+                console.log("error");   
+                }
+          });
+
+          // Set highchart title
+          //$(".highcharts-title > tspan").text(name + "'s Points vs Round " +round+ "Picks")
+        });
+
+        chartOptions = {
+                      chart: {
+                          type: 'column',
+                          renderTo: 'player-points'
+                      },
+                      title: {
+                          text: "'s Points vs Round Picks"
+                      },
+                      xAxis: {
+                          type: 'category',
+                          labels: {
+                              rotation: -45,
+                              style: {
+                                  fontSize: '13px',
+                                  fontFamily: 'Verdana, sans-serif'
+                              }
+                          }
+                      },
+                      yAxis: {
+                          min: 0,
+                          title: {
+                              text: 'Points'
+                          }
+                      },
+                      legend: {
+                          enabled: false
+                      },
+                      tooltip: {
+                          //pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+                      },
+                      series: [{
+                          name: 'Points',
+                          dataLabels: {
+                              enabled: true,
+                              rotation: -90,
+                              color: '#FFFFFF',
+                              align: 'right',
+                             // format: '{point.y:.1f}', // one decimal
+                              y: 10, // 10 pixels down from the top
+                              style: {
+                                  fontSize: '13px',
+                                  fontFamily: 'Verdana, sans-serif'
+                              }
+                          }
+                      }]
+                  };
+
+    
 
         var $dialog = $("dialog").dialog({
           buttons: [
