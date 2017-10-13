@@ -34,7 +34,7 @@
       </thead>
       <tbody>
         <% @players.each do |player| %>
-          <tr>
+          <tr style="cursor: pointer;">
             <td><%= player.lwl_rank %></td>
             <td><%= player.draft_pos %></td>
             <td><%= link_to player.name, player_path(player) %></td>

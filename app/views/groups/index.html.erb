@@ -15,7 +15,7 @@
             </thead>
             <tbody>
               <% @groups.each_with_index do |group, index| %>
-                <tr id='<%= group.id %>'>
+                <tr id='<%= group.id %>' style="cursor: pointer;">
                   <td class="align-table-content">
                     <%= index+1 %>
                   </td>
@@ -59,7 +59,7 @@
                     </thead>
                     <tbody>
                       <% group.players.each do |player| %>
-                        <tr>
+                        <tr style="cursor: pointer;">
                           <td class="player-hoverable"><%= player.draft_pos %></td>
                           <td class="player-hoverable player-link" data-player-id="<%= player.id %>" data-player-round="<%= player.draft_pos %>" data-player-name="<%= player.name %>"><%= player.name %></td>
                           <td class="player-hoverable"><%= player.team_abbrev %></td>
