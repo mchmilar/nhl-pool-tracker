@@ -25,11 +25,17 @@ td.dt-center {
 }
 
 body {
-  background-color: #F5F5F5;
+  overflow-x: hidden;
+}
+
+#groups-sidebar {
+  //background-color: #F5F5F5;
+  background-color: #E0E0E0;
+  height: 100vh;
 }
 
 .panel-default>.group-header {
-  background-color: #CFD8DC;
+  //background-color: #CFD8DC;
   color: #263238;
 }
 
@@ -115,13 +121,17 @@ body {
 
 .group-content {
   margin-top: 5em;
-  -webkit-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+ // -webkit-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+ // -moz-box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
+ // box-shadow: 0px 2px 14px -5px rgba(0, 0, 0, 0.75);
 }
 
 .group-content>.panel-heading {
   background-color: white;
+}
+
+.panel-body {
+  padding: 0px;
 }
 
 .invisible-panel {
@@ -131,4 +141,8 @@ body {
 
 th {
   font-weight: 500;
+}
+
+.tonights-opp {
+  color: red;
 }

@@ -59,13 +59,13 @@
 			success: function(json, textStatus, jqXHR) {
 				console.log(json);
 				chartOptions.series[0].data = json;
-        console.log(chartOptions);
-        console.log(chartOptions.series[0].data); 
-        chart = new Highcharts.chart(chartOptions);
+                console.log(chartOptions);
+                console.log(chartOptions.series[0].data); 
+                chart = new Highcharts.chart(chartOptions);
 			},
 			error: function(jqHXR, textStatus, errorThrown) {
 					console.log("error");   
-					}
+			}
 		});
     
 

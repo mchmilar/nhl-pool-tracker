@@ -5,4 +5,15 @@ $(document).on "turbolinks:load", ->
     'paging': false
     'info': false
     'autoWidth': false
+    'columns': [
+      { "type": "num" },
+      { "type": "string" },
+      { "type": "string" },
+      { "type": "string" },
+      { "type": "num" },
+      { "type": "num" },
+      { "type": "num" },
+      { "type": "num" },
+      { "type": "num" },
+    ]
   return

@@ -94,4 +94,34 @@ class Team < ActiveRecord::Base
     true
   end
 
+  # Return a hash with teams abbrev who are playing tonight
+    # as keys. Values are their opponents abbrev with an '@'
+    # prefixed to an away teams opponents . It's a little redundant
+    # storing each team twice but there can only ever be a max of
+    # 15 games (31 teams in the league) so it has no performance
+    # impact while simplfying implimentation with the hash
+    def self.getActiveTonight()
+      time = Time.new
+      sched_url = 'https://statsapi.web.nhl.com/api/v1/schedule?startDate=%s&endDate=%s&leaderCategories=&leaderGameTypes=R&site=en_nhlCA&teamId=&gameType=&timecode='
+      sched_url = sched_url % [time.strftime("%Y-%m-%d"), time.strftime("%Y-%m-%d")]
+      sched_json = open(sched_url).read
+      sched_json = JSON.parse(sched_json, symbolize_names: true)
+      # sched json contains some keys the total game counts of 
+      # the requested date range. the dates key is a an array
+      # of all the requested dates. Since we only want one day
+      # we select the first (and only) date. Inside that date is
+      # the games key which is the array with our schedule info
+      games_array = sched_json[:dates][0][:games]
+      schedule = Hash.new
+      games_array.each do |game|
+          away = game[:teams][:away][:team][:name]
+          home = game[:teams][:home][:team][:name]
+          away_abbrev = Team.find_by(teamFullName: away).teamAbbrev
+          home_abbrev = Team.find_by(teamFullName: home).teamAbbrev
+          schedule[home_abbrev] = " vs %s" % [away_abbrev]
+          schedule[away_abbrev] = " @ %s" % [home_abbrev]
+      end
+      schedule
+  end
+
 end
