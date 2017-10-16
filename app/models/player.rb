@@ -75,8 +75,10 @@ class Player < ActiveRecord::Base
     #strip individual player hash of unessessary key:value pairs
     players = players.to_a.map(&:serializable_hash)
     players.each do |player| 
-      player.slice!('name', options[:stat])
       player[:y] = player[options[:stat]]
+      gid = player['group_id']
+      player['grp'] = Group.find(gid).name
+      player.slice!('name', options[:stat], :y, 'grp')
       puts name
       player[:selected] = true  if player['name'] == name
     end

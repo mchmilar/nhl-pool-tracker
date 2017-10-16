@@ -2,7 +2,7 @@
   <% provide(:title, 'Groups') %>
     <div class="container-fluid">
       <!-- main page row -->
-      <div class="row">
+      <div class="row" style="height: 100vh;">
         <div id="groups-sidebar" class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
           <table class="table table-condensed table-hover table-groups">
             <thead>
@@ -165,7 +165,10 @@
                           enabled: false
                       },
                       tooltip: {
-                          //pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+                          //pointFormat: 'Group: <b>{point.grp:}</b>'
+                           formatter: function() {
+                             return '<ul><li>Group: ' + this.point.grp + '<br />Points: ' + this.point.y + '</li></ul>';
+                           }
                       },
                       plotOptions: {
                           series: {

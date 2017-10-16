@@ -11,6 +11,12 @@ $font-url: 'http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic&s
 $grayMediumLight: #eaeaea;
 body {
   font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+}
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 th.dt-center,
@@ -24,14 +30,9 @@ td.dt-center {
   }
 }
 
-body {
-  overflow-x: hidden;
-}
-
 #groups-sidebar {
   //background-color: #F5F5F5;
   background-color: #E0E0E0;
-  height: 100vh;
 }
 
 .panel-default>.group-header {
@@ -59,11 +60,11 @@ body {
 }
 
 .panel-group {
-  margin-top: 5em;
+ // margin-top: 5em;
 }
 
 .table-groups {
-  margin-top: 5em;
+ // margin-top: 5em;
 }
 
 .full-height-div {
