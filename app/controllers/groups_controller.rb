@@ -1,6 +1,5 @@
 class GroupsController < ApplicationController
   require 'open-uri'
-  include TeamsHelper
   
   def index
     @groups = Group.sorted_array

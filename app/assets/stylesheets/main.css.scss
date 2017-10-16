@@ -11,7 +11,6 @@ $font-url: 'http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic&s
 $grayMediumLight: #eaeaea;
 body {
   font-family: 'Roboto', sans-serif;
-  overflow-x: hidden;
 }
 body {
   height: 100vh;
@@ -60,11 +59,11 @@ td.dt-center {
 }
 
 .panel-group {
- // margin-top: 5em;
+  margin-top: 5em;
 }
 
 .table-groups {
- // margin-top: 5em;
+  margin-top: 5em;
 }
 
 .full-height-div {
