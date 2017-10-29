@@ -28,6 +28,11 @@ class AdminController < ApplicationController
     render 'panel'
   end
 
+  def pull_schedule
+    Game.pull_schedule("2017", "2018", "R")
+    redirect_to groups_path
+  end
+
   private
   
   # Before filters

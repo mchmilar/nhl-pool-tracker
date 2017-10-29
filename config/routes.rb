@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  get 'admin/pull-schedule', to: 'admin#pull_schedule'
   get 'admin/panel', to: 'admin#panel'
   post 'admin/update-player-stats', to: 'admin#update_player_stats'
   post 'admin/import-groups', to: 'admin#import_groups'
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   
   get '/users', to: 'users#new'
   post '/users', to: 'users#create'
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

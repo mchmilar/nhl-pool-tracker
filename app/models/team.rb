@@ -4,6 +4,9 @@ require 'json'
 class Team < ActiveRecord::Base
 
   has_many :players
+  has_many :away_teams, :class_name => 'Game', :foreign_key => 'away_team_id'
+  has_many :home_teams, :class_name => 'Game', :foreign_key => 'home_team_id'
+
   before_save do
     self.teamFullName = teamFullName.titleize if teamFullName
     self.teamAbbrev = teamAbbrev.upcase if teamAbbrev
@@ -19,6 +22,11 @@ class Team < ActiveRecord::Base
             format: { with: VALID_ABBREV_REGEX }
 
 
+
+  def self.team_id_by_name(team_name)
+    team = Team.find_by(teamFullName: team_name)
+    team[:id]
+  end
   # Use the team_stats array to update all team records
   # Should rollback all changes if any of the updates fail
   def self.do_teams_update(team_stats)

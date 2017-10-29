@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005202716) do
+ActiveRecord::Schema.define(version: 20171029124351) do
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "nhl_game_id",  limit: 4
+    t.string   "link",         limit: 255
+    t.string   "game_type",    limit: 255
+    t.integer  "season",       limit: 4
+    t.datetime "game_date"
+    t.integer  "away_team_id", limit: 4
+    t.integer  "home_team_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "games", ["away_team_id"], name: "fk_rails_5b075ea244", using: :btree
+  add_index "games", ["home_team_id"], name: "fk_rails_0b3e4ed788", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string  "name",         limit: 255
@@ -102,4 +117,6 @@ ActiveRecord::Schema.define(version: 20171005202716) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
+  add_foreign_key "games", "teams", column: "away_team_id"
+  add_foreign_key "games", "teams", column: "home_team_id"
 end
