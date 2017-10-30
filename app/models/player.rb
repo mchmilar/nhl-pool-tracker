@@ -26,6 +26,10 @@ class Player < ActiveRecord::Base
   def group
     Group.find(group_id)
   end
+
+  def games_this_month
+    Game.where("(away_team_id = ? or home_team_id = ?) and MONTH(game_date) = MONTH(CURRENT_DATE()) and game_date >= CURRENT_DATE()", team_id, team_id).size
+  end
   
   # get the projected pts/gm
   def prjct_pts_game
