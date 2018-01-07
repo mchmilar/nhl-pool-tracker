@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #gem 'pg'
 gem 'mysql2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.8'
 gem 'jquery-ui-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'will_paginate', '3.0.7'
@@ -39,7 +39,8 @@ gem 'gon'
 gem 'log4r'
 gem "highcharts-rails"
 gem 'materialize-sass'
-
+gem 'pry'
+gem 'pry-nav'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

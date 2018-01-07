@@ -93,7 +93,7 @@ class Group < ActiveRecord::Base
   end
   
   def self.sorted_array
-    Group.all.sort_by { |group| -group.total_points }
+    Group.all.sort_by { |group| -group.top_points }
   end
 
   def self.sorted_hash

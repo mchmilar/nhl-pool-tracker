@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029124351) do
+ActiveRecord::Schema.define(version: 20180106234041) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "nhl_game_id",  limit: 4
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20171029124351) do
   create_table "groups", force: :cascade do |t|
     t.string  "name",         limit: 255
     t.integer "op_id_number", limit: 4
+  end
+
+  create_table "injuries", force: :cascade do |t|
+    t.integer  "player_id",   limit: 4
+    t.date     "injury_date"
+    t.string   "type",        limit: 255
+    t.string   "note",        limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "player_stat_histories", force: :cascade do |t|
@@ -77,6 +86,7 @@ ActiveRecord::Schema.define(version: 20171029124351) do
     t.integer  "shots",      limit: 4,                  default: 0
     t.decimal  "s_pct",                  precision: 10, default: 0
     t.decimal  "atoi",                   precision: 10, default: 0
+    t.integer  "nhl_id",     limit: 4
   end
 
   create_table "teams", force: :cascade do |t|
@@ -103,6 +113,7 @@ ActiveRecord::Schema.define(version: 20171029124351) do
     t.string   "seasonId",            limit: 255
     t.integer  "ties",                limit: 4
     t.integer  "shootoutGamesWon",    limit: 4
+    t.string   "snet_abbrev",         limit: 255
   end
 
   create_table "users", force: :cascade do |t|

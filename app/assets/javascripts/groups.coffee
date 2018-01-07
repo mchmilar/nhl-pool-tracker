@@ -8,6 +8,7 @@ $(document).on "turbolinks:load", ->
     'columns': [
       { "type": "num" },
       { "type": "string" },
+      { "type": "num" },
       { "type": "string" },
       { "type": "string" },
       { "type": "num" },

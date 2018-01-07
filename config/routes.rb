@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post 'admin/update-player-stats', to: 'admin#update_player_stats'
   post 'admin/import-groups', to: 'admin#import_groups'
   post 'admin/update', to: 'admin#update_teams'
-
+  get 'admin/update-player-teams', to: 'admin#update_player_teams'
   root 'groups#index'
 
   resources :players

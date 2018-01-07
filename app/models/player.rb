@@ -2,25 +2,29 @@ class Player < ActiveRecord::Base
   require 'csv'
   require 'open-uri'
   require 'json'
+  require 'pry'
   
   belongs_to :group
+  has_one :injury
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
   
-  STATS_SCRAPE_URL = 'http://www.sportsnet.ca/wp-admin/admin-ajax.php?action=leagues_players_get_data&league=nhl&position=skater&theme=genesis&season=2017'
-  NAME_KEY = '18'
-  POINTS_KEY = '5'
-  GP_KEY = '2'
-  G_KEY = '3'
-  A_KEY = '4'
-  PPG_KEY = '7'
-  PPP_KEY = '8'
-  SHG_KEY = '10'
-  SHP_KEY = '11'
-  GWG_KEY = '12'
-  SOG_KEY = '14'
-  S_PCT_KEY = '15'
-  ATOI_KEY = '16'
+  STATS_SCRAPE_URL = 'http://www.nhl.com/stats/rest/skaters?isAggregate=false&reportType=basic&isGame=false&reportName=skatersummary&cayenneExp=gameTypeId=2%20and%20seasonId%3E=20172018%20and%20seasonId%3C=20172018'
+  NAME_KEY = 'playerName'
+  POINTS_KEY = 'points'
+  GP_KEY = 'gamesPlayed'
+  G_KEY = 'goals'
+  A_KEY = 'assists'
+  PPG_KEY = 'ppGoals'
+  PPP_KEY = 'ppPoints'
+  SHG_KEY = 'shGoals'
+  SHP_KEY = 'shPoints'
+  GWG_KEY = 'gameWinningGoals'
+  SOG_KEY = 'shots'
+  S_PCT_KEY = 'shootingPctg'
+  ATOI_KEY = 'timeOnIcePerGame'
+  NHLID_KEY = 'playerId'
+  TEAMS_PLAYED_FOR_KEY = 'playerTeamsPlayedFor'
   GAMES_IN_SEASON = 82.0
   # get the group that picked the player
   def group
@@ -134,15 +138,59 @@ class Player < ActiveRecord::Base
       Player.create!(player_hash)
     end
   end
-  
+
+  def self.check_player_teams
+    players = Player.all
+    #binding.pry
+    # threads = []
+    # 50.times do |i|
+    #   threads[i] = Thread.new do
+        
+    #   end
+    # end
+    # threads.each { |thr| thr.join }
+
+    threads = []
+    players.each do |player|
+      #threads << Thread.new {
+        fixed_name = player.name.gsub(/\s/, '%20')
+        #puts fixed_name
+        url = "https://suggest.svc.nhl.com/svc/suggest/v1/minplayers/#{fixed_name}"
+        result = JSON.parse(open(url).read)
+        #puts result
+        sz = result["suggestions"].size
+        if result["suggestions"].size > 1
+          count = 0
+          result["suggestions"].each do |p|
+            count += 1 if p.split("|")[3] == "1"
+          end
+          if count > 1 or result["suggestions"].size == 0
+            p_result = result['suggestions']
+            puts "\n #{player.name} \n #{player.team_id} \n #{sz} \n"
+            #binding.pry
+          end
+
+        end
+        #binding.pry if result.size != 1
+      #}
+      
+    end
+    #threads.each { |thr| thr.join }
+  end
+
   # Should be moved to separate module?
   def self.update_stats
     players_stats = JSON.parse(open(STATS_SCRAPE_URL).read)
     failed_array = Array.new
     # iterate through each player and update their stats
-    players_stats.each do |player_stats|
-      player = Player.find_by(name: player_stats[NAME_KEY])
+    players_stats["data"].each do |player_stats|
+      #binding.pry if player_stats[NAME_KEY] == "Sebastian Aho"
+      player = Player.find_by(nhl_id: player_stats[NHLID_KEY])
       if player
+        # NHL.COM REST API for stats gives a comma separated list of teams played for
+        # in the current season. So we want the last team in this list.
+        teams_played_for = player_stats[TEAMS_PLAYED_FOR_KEY].split(', ')
+        team_id = Team.find_by(teamAbbrev: teams_played_for[teams_played_for.size - 1]).id
         player.update(gp: player_stats[GP_KEY],
            pts: player_stats[POINTS_KEY],
            goals: player_stats[G_KEY],
@@ -154,10 +202,13 @@ class Player < ActiveRecord::Base
            gwg: player_stats[GWG_KEY],
            shots: player_stats[SOG_KEY],
            s_pct: player_stats[S_PCT_KEY],
-           atoi: player_stats[ATOI_KEY])
+           atoi: player_stats[ATOI_KEY],
+           nhl_id: player_stats[NHLID_KEY],
+           team_id: team_id)
       else
         # If we are here then we weren't able to find the player in our database
         # We want to try to add the player and their stats to the database
+        
         if !Player.add_player(player_stats[NAME_KEY],
                               player_stats[GP_KEY],
                               player_stats[POINTS_KEY],
@@ -170,7 +221,8 @@ class Player < ActiveRecord::Base
                               player_stats[GWG_KEY],
                               player_stats[SOG_KEY],
                               player_stats[S_PCT_KEY],
-                              player_stats[ATOI_KEY])
+                              player_stats[ATOI_KEY],
+                              player_stats[NHLID_KEY])
           failed_array << player_stats[NAME_KEY]
         end
       end
@@ -179,21 +231,24 @@ class Player < ActiveRecord::Base
   end
 
   # Should be moved to separate module?
-  def self.add_player(name, gp, points, g, a, ppg, ppp, shg, shp, gwg, sog, s_pct, atoi)
+  def self.add_player(name, gp, points, g, a, ppg, ppp, shg, shp, gwg, sog, s_pct, atoi, nhl_id)
     # If we already have a player with the same last name in our database
     # we will have to manually deal with the player as sometimes there are
     # differences in  how first names are expressed.
     # EG: P.A Parenteau / Pierre-Alexander Parenteau / PA Parenteau
-    name_a = name.split
-    logger.debug "Couldn't find player #{name}, attempting to create player in database"
-    player = Player.where("name like ?", "%#{name_a[name_a.length - 1]}")[0]
-    logger.debug "name like #{name_a[name_a.length - 1]} returns: #{player}"
-    return false if player
-    player = Player.create(name: name, gp: gp, pts: points, goals: g, assists: a, ppg: ppg, ppp: ppp, shg: shg, shp: shp, gwg: gwg, shots: sog, s_pct: s_pct, atoi: atoi)
+    # name_a = name.split
+    # logger.debug "Couldn't find player #{name}, attempting to create player in database"
+    # player = Player.where("name like ?", "%#{name_a[name_a.length - 1]}")[0]
+    # logger.debug "name like #{name_a[name_a.length - 1]} returns: #{player.name}"
+    # return false if player
+    binding.pry
+    player = Player.create!(nhl_id: nhl_id, name: name, gp: gp, pts: points, goals: g, assists: a, ppg: ppg, ppp: ppp, shg: shg, shp: shp, gwg: gwg, shots: sog, s_pct: s_pct, atoi: atoi)
     if player
       logger.debug "Successfully created player #{name}"
+      return true
     else
       logger.debug "Failed to create player #{name} with errors: #{player.errors.full_messages}"
+      return false
     end
 
   end

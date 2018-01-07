@@ -4,6 +4,10 @@ class AdminController < ApplicationController
   def panel
   end
 
+  def update_player_teams
+    Player.check_player_teams
+  end
+
   def update_player_stats
   	flash[:updated_stats] = Player.update_stats
     respond_to do |format|
